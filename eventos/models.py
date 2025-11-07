@@ -1,8 +1,8 @@
 from django.db import models
 class eventos(models.Model): 
     eventos_tipo = [('Aniversário','aniversário'),('Formatura','formatura'),('Colônia de férias','colônia de férias')]
-    cliente = models.ForeignKey('Cliente', on_delete=models.CASCADE)
-    fornecedor = models.ForeignKey('Fornecedor', on_delete=models.CASCADE)
+    cliente = models.ForeignKey('usuarios.Cliente', on_delete=models.CASCADE)
+    fornecedor = models.ForeignKey('usuarios.Fornecedor', on_delete=models.CASCADE)
     tipo_evento = models.CharField(choices = eventos_tipo)
     data_evento = models.DateField()
     descricao = models.TextField(blank=True)

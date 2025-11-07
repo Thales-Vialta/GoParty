@@ -8,4 +8,13 @@ class usuario(models.Model):
     telefone = models.CharField(max_length=20, null=True)
     
     def __str__(self):
-        return self.nome
+        return f'{self.nome} cadastrado com sucesso'
+class Cliente(usuario):
+    cpf = models.CharField(max_length=14, unique=True),
+    endereco = models.CharField(max_length=200)
+class Fornecedor(usuario): 
+    cnpj = models.CharField(max_length=18,unique=True)
+    categoria = models.CharField(max_length=100)
+    descricao = models.TextField(blank=True)
+        
+        

@@ -1,16 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from .forms import CadastroForm, LoginForm
-
-def cadastro_view(request):
-    if request.method == 'POST':
-        form = CadastroForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-    else:
-        form = CadastroForm()
-    return render(request, 'usuarios/cadastro.html', {'form': form})
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
+from .forms import LoginForm, CadastroForm
 
 def login_view(request):
     if request.method == 'POST':
@@ -18,10 +9,27 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('evento_list')
+            return redirect('eventos_lista')
     else:
         form = LoginForm()
     return render(request, 'usuarios/login.html', {'form': form})
+
+def cadastro_view(request):
+    if request.method == 'POST':
+        form = CadastroForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            login(request, user)
+            return redirect('eventos_lista')
+    else:
+        form = CadastroForm()
+    return render(request, 'usuarios/cadastro.html', {'form': form})
+
+@login_required
+def perfil_view(request):
+    return render(request, 'usuarios/perfil.html', {'usuario': request.user})
 
 def logout_view(request):
     logout(request)

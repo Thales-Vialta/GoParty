@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'pagamentos',
     'usuarios',
 ]
-
+AUTH_USER_MODEL = 'usuarios.Usuario'
+LOGIN_URL = '/usuarios/login/'
+LOGIN_REDIRECT_URL = '/eventos/'
+LOGOUT_REDIRECT_URL = '/usuarios/login/'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

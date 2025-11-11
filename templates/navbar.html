@@ -1,0 +1,22 @@
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">GoParty</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a href="/eventos/" class="nav-link">Eventos</a></li>
+        <li class="nav-item"><a href="/pagamentos/" class="nav-link">Pagamentos</a></li>
+      </ul>
+      <ul class="navbar-nav">
+        {% if user.is_authenticated %}
+          <li class="nav-item"><a href="/usuarios/perfil/" class="nav-link">{{ user.username }}</a></li>
+          <li class="nav-item"><a href="/usuarios/logout/" class="nav-link">Sair</a></li>
+        {% else %}
+          <li class="nav-item"><a href="/usuarios/login/" class="nav-link">Entrar</a></li>
+          <li class="nav-item"><a href="/usuarios/cadastro/" class="nav-link">Cadastrar</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+</body>
+</html>
